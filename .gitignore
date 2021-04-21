@@ -1,2 +1,2 @@
-main
-Makefile
+/*.o
+/Makefile
