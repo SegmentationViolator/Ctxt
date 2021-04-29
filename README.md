@@ -36,4 +36,4 @@ run `./ctxt`
 If you encounter any bugs while trying out the editor please report them.
 
 # Changelog
-check out [changelog.txt](https://github.com/Sakon13/ctxt/blob/main/changelog.txt)
+check out [changelog.md](https://github.com/Sakon13/ctxt/blob/main/changelog.md)
