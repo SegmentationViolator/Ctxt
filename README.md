@@ -12,8 +12,8 @@ The booklet is written by [Snaptoken](https://github.com/snaptoken).
 
 # Compile Instructions
 ## Pre-requisites
-	- C compiler. (e.g. GCC, Clang)
-	- (Optional) git.
+- C compiler. (e.g. GCC, Clang)
+- (Optional) git.
 
 ## compilation
 keep `main.c` `ini.c` and `ini.h` in a single directory.
