@@ -19,7 +19,7 @@
 #define CTRL_KEY(k) ((k) & 0x1f)
 
 #define DEFAULT_TAB_STOP 8
-#define DEFAULT_NUMBER_LINE 0
+#define DEFAULT_NL_WIDTH 5
 
 enum Keys
 {
@@ -64,6 +64,7 @@ struct
 	time_t statusmsg_time;
 	// Text Rendering Dimensions
 	int textcols;
+	int number_line_width;
 } E;
 
 /* Prototypes */
@@ -286,16 +287,16 @@ void editorScroll()
 	if (E.rx < E.coloff) {
 		E.coloff = E.rx;
 	}
-	if (E.rx >= E.coloff + E.screencols) {
-		E.coloff = E.rx - E.screencols + 1;
+	if (E.rx >= E.coloff + E.textcols) {
+		E.coloff = E.rx - E.textcols + 1;
 	}
 }
 
 void editorDrawNumberLineRow(buffer *buf, int index)
 {
 	char n[16];
-	snprintf(n, sizeof(n), "%d", index);
-	int padding = (log10(E.line_count) + 1) - strlen(n) + 1;
+	snprintf(n, sizeof(n), "%d", index + 1);
+	int padding = E.number_line_width - strlen(n) - 2;
 	while(padding--)
 		bufferAppend(buf, " ", 1);
 
@@ -310,7 +311,10 @@ void editorDrawRows(buffer *buf)
 	{
 		int filerow = y + E.rowoff;
 		if (filerow >= E.line_count) {
-			bufferAppend(buf, "~", 1);
+			if (filerow == 0 && E.number_line)
+				editorDrawNumberLineRow(buf, filerow);
+			else
+				bufferAppend(buf, "~", 1);
 		} else {
 			if (E.number_line)
 				editorDrawNumberLineRow(buf, filerow);
@@ -369,8 +373,13 @@ void editorRefreshScreen()
 	E.screenrows -= 2;
 	E.textcols = E.screencols;
 
-	if (E.number_line)
-		E.textcols -= (log10(E.line_count) + 1) + 3;
+	if (E.number_line) {
+		E.number_line_width = log10(E.line_count + 1) + 2;
+		if (E.number_line_width < DEFAULT_NL_WIDTH)
+			E.number_line_width = DEFAULT_NL_WIDTH;
+
+		E.textcols = E.screencols - E.number_line_width;
+	}
 
 	buffer b = BUFFER_INIT;
 
@@ -384,7 +393,7 @@ void editorRefreshScreen()
 	char buf[32];
 	snprintf(buf, sizeof(buf),"\x1b[%d;%dH",
 			((E.cy - E.rowoff) + 1),
-			(E.rx - E.coloff) + 1);
+			 (E.rx - E.coloff + E.number_line_width) + 1);
 	bufferAppend(&b, buf, strlen(buf));
 
 	bufferAppend(&b, "\x1b[?25h", 6);
@@ -414,7 +423,7 @@ void editorMoveCursor(int key)
 			}
 			break;
 		case ARROW_RIGHT:
-			if (line && E.cx < line->size) {
+			if (line && (E.cx - 0) < line->size) {
 				E.cx++;
 			}
 			break;
@@ -479,7 +488,7 @@ void loadConfig()
 	ini_t *conf = ini_load("init.ini");
 	if (conf != NULL) {
 		E.tab_stop = DEFAULT_TAB_STOP;
-		E.number_line = DEFAULT_NUMBER_LINE;
+		E.number_line = 0;
 		char *temp = "null";
 
 		ini_sget(conf, NULL, "tabstop", "%d", &E.tab_stop);
@@ -515,8 +524,13 @@ void initEditor()
 	E.screenrows -= 2;
 	E.textcols = E.screencols;
 
-	if (E.number_line)
-		E.textcols -= (log10(E.line_count) + 1) + 3;
+	if (E.number_line) {
+		E.number_line_width = log10(E.line_count + 1) + 2;
+		if (E.number_line_width < DEFAULT_NL_WIDTH)
+			E.number_line_width = DEFAULT_NL_WIDTH;
+
+		E.textcols = E.screencols - E.number_line_width;
+	}
 }
 
 int main(int argc, char *argv[])
