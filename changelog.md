@@ -4,12 +4,14 @@ fixed rendering issues
 ### version 0.0.3a
 added support for config file
 ### version 0.0.4a
-added line number column and made it optional
+added number line and made it optional
 ### version 0.0.5a
-improved line number column
-fixed bugs related to line number column
+improved number line column
+fixed bugs related to number line
 ### version 0.0.6a
-improved line number column bug
-added line number column support to empty buffers
-
-# ~~TODO: fix: cursor can be placed on line number column~~ done.
+bug fixes
+added number line support to empty buffers
+### version 0.1.0
+bug fixes
+added support for editing and saving buffers
+changed number line style
