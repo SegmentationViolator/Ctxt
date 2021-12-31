@@ -14,3 +14,6 @@
 - bug fixes
 - added support for editing and saving buffers
 - changed number line style
+## version 0.2.0
+- corrected README.md and Makefile
+- location of config file was changed

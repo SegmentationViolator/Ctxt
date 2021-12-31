@@ -1,6 +1,6 @@
 # About
 I worked on this project because I wanted to learn C and do a fun project.
-This editor is not mean't for actual use.
+> This editor is written and tested to be run only on linux. you may try to run it on other OSes but it's not guaranteed to work on other OSes
 
 This project is based on this booklet:
 [Build Your Own Text Editor](https://viewsourcecode.org/snaptoken/kilo/index.html).
@@ -15,31 +15,24 @@ The booklet is written by [Snaptoken](https://github.com/snaptoken).
 - (Optional) git.
 
 ## compilation
-Keep `main.c` `ini.c` and `ini.h` in a single directory.
-
-**OR**
 
 ```
-git clone https://github.com/Sakon13/ctxt
+git clone https://github.com/SEG-V/ctxt
 cd ctxt
-```
-
-then,
-```
 make build
 ./ctxt
 ```
 
 # Configuration
-Unlike other text editors, the config file (ctxt.ini) needs to be stored in the working directory.
+The configuration file `config.ini` should be loacted at `$HOME/.config/ctxt/`
 
 | options    | value        | default | description       |
 | ---------- | ------------ | ------- | ----------------- |
-| tabstop    | unsigned int | 8       | length of '\t'    |
+| tabstop    | unsigned int | 8       | width of '\t'     |
 | numberline | on | off     | off     | toggle numberline |
 
 # Contribute
 If you encounter any bugs while trying out the editor please report them.
 
 # Changelog
-Check out [changelog.md](https://github.com/Sakon13/ctxt/blob/main/changelog.md)
+Check out [changelog.md](changelog.md)
