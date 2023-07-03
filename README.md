@@ -29,7 +29,7 @@ The configuration file `config.ini` should be loacted at `$HOME/.config/ctxt/`
 | options    | value        | default | description       |
 | ---------- | ------------ | ------- | ----------------- |
 | tabstop    | unsigned int | 8       | width of '\t'     |
-| numberline | on | off     | off     | toggle numberline |
+| numberline | on \| off     | off     | toggle numberline |
 
 # Contribute
 If you encounter any bugs while trying out the editor please report them.
