@@ -14,7 +14,7 @@ The booklet is written by [Snaptoken](https://github.com/snaptoken).
 - C compiler. (e.g. GCC, Clang)
 - (Optional) git.
 
-## compilation
+## Compilation
 
 ```
 git clone https://github.com/SEG-V/ctxt
@@ -24,12 +24,12 @@ make build
 ```
 
 # Configuration
-The configuration file `config.ini` should be loacted at `$HOME/.config/ctxt/`
+The configuration file `config.ini` should be located at `$HOME/.config/ctxt/`
 
 | options    | value        | default | description       |
 | ---------- | ------------ | ------- | ----------------- |
 | tabstop    | unsigned int | 8       | width of '\t'     |
-| numberline | on \| off     | off     | toggle numberline |
+| numberline | on \| off    | off     | toggle numberline |
 
 # Contribute
 If you encounter any bugs while trying out the editor please report them.
